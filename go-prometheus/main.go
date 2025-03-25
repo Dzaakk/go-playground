@@ -12,7 +12,8 @@ import (
 )
 
 var (
-	registry           = prometheus.NewRegistry()
+	registry = prometheus.NewRegistry()
+
 	httpRequestCounter = promauto.NewCounter(prometheus.CounterOpts{
 		Name: "http_requests_total",
 		Help: "Total number of HTTP requests",
@@ -36,13 +37,9 @@ var (
 )
 
 func init() {
-	registry.MustRegister(httpRequestCounter)
 	registry.MustRegister(httpDuration)
 	registry.MustRegister(httpActiveRequests)
 
-	prometheus.MustRegister(httpRequestCounter)
-	prometheus.MustRegister(httpDuration)
-	prometheus.MustRegister(httpActiveRequests)
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
@@ -64,7 +61,7 @@ func main() {
 
 	http.HandleFunc("/", helloHandler)
 	http.Handle("/metrics", promhttp.HandlerFor(
-		prometheus.DefaultGatherer,
+		registry,
 		promhttp.HandlerOpts{},
 	))
 

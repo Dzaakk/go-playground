@@ -65,25 +65,19 @@ import (
 
 // fixed with atomic operations
 func main() {
-	// Use an atomic counter
 	var counter int64 = 0
 
-	// We'll use this to wait for all goroutines to finish
 	var wg sync.WaitGroup
 
-	// Launch 1000 goroutines
 	for i := 0; i < 1000; i++ {
 		wg.Add(1)
 		go func() {
-			// Use atomic operation to increment
 			atomic.AddInt64(&counter, 1)
 			wg.Done()
 		}()
 	}
 
-	// Wait for all goroutines to complete
 	wg.Wait()
 
-	// Print the final value
 	fmt.Println("Final counter value:", counter)
 }

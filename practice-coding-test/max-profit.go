@@ -25,3 +25,24 @@ func maxProfit(prices []int) int {
 	}
 	return maxProfit
 }
+
+// sliding window
+func maxProfit2(prices []int) int {
+	left := 0
+	right := 1
+	maxProfit := 0
+
+	for right < len(prices) {
+		if prices[left] < prices[right] {
+			profit := prices[right] - prices[left]
+			if profit > maxProfit {
+				maxProfit = profit
+			}
+		} else {
+			left = right
+		}
+		right++
+	}
+
+	return maxProfit
+}

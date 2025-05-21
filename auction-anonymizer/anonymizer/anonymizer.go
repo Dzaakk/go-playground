@@ -13,7 +13,6 @@ type EmailAnonymizer struct{}
 
 func (e EmailAnonymizer) Anonymize(email string) string {
 	regex := regexp.MustCompile(`(^[^@]{2})[^@]*(@.*$)`)
-	// regex := regexp.MustCompile(`(^[^@]{2})[^@]*(@.*$)`)
 	matches := regex.FindStringSubmatch(email)
 	fmt.Printf("MATCHES = %v\n", matches)
 	if len(matches) != 3 {
@@ -26,7 +25,6 @@ func (e EmailAnonymizer) Anonymize(email string) string {
 type UsernameAnonymizer struct{}
 
 func (u UsernameAnonymizer) Anonymize(username string) string {
-	// regex := regexp.MustCompile(`^(.{3})(.*)$`)
 	regex := regexp.MustCompile(`^(.{3})(.*)$`)
 	return regex.ReplaceAllString(username, "${1}***")
 }
@@ -34,7 +32,6 @@ func (u UsernameAnonymizer) Anonymize(username string) string {
 type IPAnonymizer struct{}
 
 func (i IPAnonymizer) Anonymize(ip string) string {
-	// regex := regexp.MustCompile(`(\d+.\d+.\d+)\.\d+`)
 	regex := regexp.MustCompile(`(\d+\.\d+\.\d+)\.\d+`)
 	return regex.ReplaceAllString(ip, "${1}.***")
 }

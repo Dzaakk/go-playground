@@ -1,0 +1,128 @@
+# graph/schema.graphqls
+
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+  stock: Int!
+  category: Category!
+  images: [String!]!
+  isActive: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  description: String
+  products: [Product!]!
+}
+
+type CartItem {
+  id: ID!
+  product: Product!
+  quantity: Int!
+  userId: String!
+}
+
+type Order {
+  id: ID!
+  userId: String!
+  items: [OrderItem!]!
+  totalAmount: Float!
+  status: OrderStatus!
+  createdAt: String!
+}
+
+type OrderItem {
+  product: Product!
+  quantity: Int!
+  price: Float!
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+# Queries
+type Query {
+  # Product queries
+  products(limit: Int, offset: Int, categoryId: ID): [Product!]!
+  product(id: ID!): Product
+  searchProducts(keyword: String!): [Product!]!
+  
+  # Category queries
+  categories: [Category!]!
+  category(id: ID!): Category
+  
+  # Cart queries
+  myCart(userId: String!): [CartItem!]!
+  
+  # Order queries
+  myOrders(userId: String!): [Order!]!
+  order(id: ID!): Order
+}
+
+# Mutations
+type Mutation {
+  # Product mutations
+  createProduct(input: CreateProductInput!): Product!
+  updateProduct(id: ID!, input: UpdateProductInput!): Product!
+  deleteProduct(id: ID!): Boolean!
+  
+  # Category mutations
+  createCategory(input: CreateCategoryInput!): Category!
+  
+  # Cart mutations
+  addToCart(input: AddToCartInput!): CartItem!
+  updateCartItem(id: ID!, quantity: Int!): CartItem!
+  removeFromCart(id: ID!): Boolean!
+  clearCart(userId: String!): Boolean!
+  
+  # Order mutations
+  createOrder(userId: String!): Order!
+  updateOrderStatus(id: ID!, status: OrderStatus!): Order!
+}
+
+# Input types
+input CreateProductInput {
+  name: String!
+  description: String!
+  price: Float!
+  stock: Int!
+  categoryId: ID!
+  images: [String!]
+}
+
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Float
+  stock: Int
+  categoryId: ID
+  images: [String!]
+  isActive: Boolean
+}
+
+input CreateCategoryInput {
+  name: String!
+  description: String
+}
+
+input AddToCartInput {
+  productId: ID!
+  quantity: Int!
+  userId: String!
+}
+
+# Subscriptions
+type Subscription {
+  productUpdated(id: ID!): Product!
+  orderStatusChanged(userId: String!): Order!
+}

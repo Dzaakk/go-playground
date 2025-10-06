@@ -60,15 +60,15 @@ func buildKey(count [26]int) string {
 	return builder.String()
 }
 
-func main() {
-	strs := []string{"eat", "tea", "tan", "ate", "nat", "bat"}
-	result := groupAnagrams(strs)
-	result2 := groupAnagrams2(strs)
+// func main() {
+// 	strs := []string{"eat", "tea", "tan", "ate", "nat", "bat"}
+// 	result := groupAnagrams(strs)
+// 	result2 := groupAnagrams2(strs)
 
-	for i, group := range result {
-		fmt.Printf("Group %d: %v\n", i+1, group)
-	}
-	for i, group := range result2 {
-		fmt.Printf("Group %d: %v\n", i+1, group)
-	}
-}
+// 	for i, group := range result {
+// 		fmt.Printf("Group %d: %v\n", i+1, group)
+// 	}
+// 	for i, group := range result2 {
+// 		fmt.Printf("Group %d: %v\n", i+1, group)
+// 	}
+// }

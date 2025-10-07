@@ -3,12 +3,12 @@ package main
 // O(n) O(n)
 // func majorityElement(nums []int) int {
 // 	mapNum := map[int]int{}
-// 	var maxCount, e int
+// 	var count, e int
 // 	for _, n := range nums {
 // 		mapNum[n]++
 
-// 		if maxCount < mapNum[n] {
-// 			maxCount = mapNum[n]
+// 		if count < mapNum[n] {
+// 			count = mapNum[n]
 // 			e = n
 // 		}
 // 	}

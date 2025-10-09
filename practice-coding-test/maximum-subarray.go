@@ -1,18 +1,17 @@
 package main
 
 func maxSubArray(nums []int) int {
-	currSum := 0
-	maxSum := nums[0]
+	var tmp, maxSum int
 
 	for _, n := range nums {
-		if currSum+n > n {
-			currSum += n
+		if tmp+n > n {
+			tmp += n
 		} else {
-			currSum = n
+			tmp = n
 		}
 
-		if currSum > maxSum {
-			maxSum = currSum
+		if tmp > maxSum {
+			maxSum = tmp
 		}
 	}
 
